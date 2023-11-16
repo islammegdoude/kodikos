@@ -1,22 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+import 'modules/slash/splashScreen.dart';
+import 'shared/BlocObserver.dart';
+import 'shared/components/constants.dart';
+import 'shared/network/local/cashe_helper.dart';
+import 'shared/network/remot/dio_helper.dart';
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = MyBlocObserver();
+  
+  DioHelper.init();
+  await CachHelper.inite();
   runApp(const MyApp());
+  
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+    
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return MultiBlocProvider(
+      providers: [
+
+      ],
+      child: MaterialApp(
+        title: 'Kodikos',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: secondColor),
+          primaryColor: secondColor,
+          useMaterial3: true,
+          fontFamily: "Poppins" 
+        ),
+        debugShowCheckedModeBanner: false,
+        home: const SplashScreen(),
       ),
-      home: const SplashScreen(),
     );
   }
 }
