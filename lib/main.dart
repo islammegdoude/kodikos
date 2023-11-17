@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'modules/slash/splashScreen.dart';
 import 'shared/BlocObserver.dart';
 import 'shared/components/constants.dart';
+import 'shared/cubit/cubit.dart';
 import 'shared/network/local/cashe_helper.dart';
 import 'shared/network/remot/dio_helper.dart';
 
@@ -26,13 +27,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-
+        BlocProvider(create: (context)=> AppCubit(),),
       ],
       child: MaterialApp(
         title: 'Kodikos',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: secondColor),
-          primaryColor: secondColor,
+          colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
+          primaryColor: primaryColor,
           useMaterial3: true,
           fontFamily: "Poppins" 
         ),

@@ -17,6 +17,7 @@ Widget kdefultButtom({
       height: (height != null) ? height : 52,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
+        color: borderColor,
         border: Border.all(
           color: borderColor,
           width: 1,
@@ -27,9 +28,9 @@ Widget kdefultButtom({
         child: Text(
           title,
           style: const TextStyle(
-            fontSize: 16,
+            fontSize: 18,
             fontWeight: FontWeight.w500,
-            color: Color.fromARGB(255, 25, 118, 210),
+            color: Colors.white,
           ),
         ),
       ),

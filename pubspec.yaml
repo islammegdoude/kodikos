@@ -46,7 +46,8 @@ dependencies:
   carousel_slider: ^4.2.1
   url_launcher: ^6.1.12
   whatsapp_unilink: ^2.1.0
-
+  smooth_page_indicator: ^1.0.0+2
+  file_picker: ^4.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
