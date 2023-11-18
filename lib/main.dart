@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'modules/login/cubit/loginCubit.dart';
 import 'modules/slash/splashScreen.dart';
 import 'shared/BlocObserver.dart';
 import 'shared/components/constants.dart';
@@ -27,7 +28,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context)=> AppCubit(),),
+        BlocProvider(create: (context)=> AppCubit()..getAllJobs(),),
+        BlocProvider(
+          create: (context) => LoginCubit(),
+        ),
       ],
       child: MaterialApp(
         title: 'Kodikos',

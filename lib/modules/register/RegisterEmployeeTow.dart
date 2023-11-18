@@ -3,23 +3,35 @@ import 'package:flutter/material.dart';
 
 import '../../shared/components/components.dart';
 import '../../shared/components/constants.dart';
+import 'thanksPage.dart';
 
-class RegisterEmployeeTow extends StatelessWidget {
+class RegisterEmployeeTow extends StatefulWidget {
   RegisterEmployeeTow({super.key});
+
+  @override
+  State<RegisterEmployeeTow> createState() => _RegisterEmployeeTowState();
+}
+
+class _RegisterEmployeeTowState extends State<RegisterEmployeeTow> {
   TextEditingController phoneNumberController = TextEditingController();
+
   TextEditingController companyTypeController = TextEditingController();
+
+  PlatformFile? file;
+
   Future<void> _uploadCV() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     if (result != null) {
-      PlatformFile file = result.files.first;
+      file = result.files.first;
 
       // You can now use the file, for example, display its name
-      print('File picked: ${file.name}');
+      print('File picked: ${file!.name}');
     } else {
       // User canceled the picker
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,12 +54,15 @@ class RegisterEmployeeTow extends StatelessWidget {
               height: 20,
             ),
             Center(
-              child: ElevatedButton(
+              child: file == null ? ElevatedButton(
                 onPressed: ()async{
+                  setState(() {
                   _uploadCV();
+
+                  });
                 } ,
                 child: Text('Upload CV'),
-              ),
+              ) : Text(file!.name),
             ),
             const SizedBox(
               height: 40,
@@ -103,6 +118,7 @@ class RegisterEmployeeTow extends StatelessWidget {
               height: 55,
               onPressed: () {
                 // Handle the onPressed action
+                navigateAndFinish(context, ThanksPage());
               },
             ),
           ],

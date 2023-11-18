@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../models/loginModel.dart';
 import '../../../shared/network/end-points/endPoints.dart';
 import '../../../shared/network/remot/dio_helper.dart';
 import 'loginStates.dart';
@@ -9,7 +10,7 @@ class LoginCubit extends Cubit<LoginStates> {
   LoginCubit(): super(LoginInitialState());
   
   static LoginCubit get(context) => BlocProvider.of(context);
-  
+  LoginModel? loginModel ;
   void userLogin({
     required String email,
     required String password,
@@ -23,9 +24,9 @@ class LoginCubit extends Cubit<LoginStates> {
       },
     ).then((value) {
       print(value.data);
-      // loginModel = LoginModel.fromJson(value.data);
-      // emit(LoginSuccesState(loginModel));
-      emit(LoginSuccesState());
+      loginModel = LoginModel.fromJson(value.data);
+      emit(LoginSuccesState(loginModel));
+      //emit(LoginSuccesState());
     }).catchError((error) {
       emit(LoginErrorState(error.toString()));
     });

@@ -1,5 +1,7 @@
 //import '../../../models/loginModel.dart';
 
+import '../../../models/loginModel.dart';
+
 abstract class LoginStates {}
 
 class LoginInitialState extends LoginStates {}
@@ -7,10 +9,10 @@ class LoginInitialState extends LoginStates {}
 class LoginLoadingState extends LoginStates {}
 
 class LoginSuccesState extends LoginStates {
-  //LoginModel loginModel;
+  LoginModel? loginModel;
 
-  // LoginSuccesState(this.loginModel);
-  LoginSuccesState();
+  LoginSuccesState(this.loginModel);
+  // LoginSuccesState();
 }
 
 class LoginErrorState extends LoginStates {

@@ -27,19 +27,17 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   List<BoardingModel> boarding = [
     BoardingModel(
-        image: 'assets/images/islam.jpg',
-        title: 'Sell',
-        body:
-            '''sell your product with your require money and easy to post.'''),
+        image: 'assets/images/photo_5962807924759838441_y.jpg',
+        title: 'Easy',
+        body: '''we make easy by our simple and efective interfice and featurs.'''),
     BoardingModel(
-        image: 'assets/images/islam.jpg',
-        title: 'Get Reward',
-        body: '''We giving regularly reward to our lucky client'''),
+        image: 'assets/images/undraw_Interview_re_e5jn.png',
+        title: 'Fast',
+        body: '''and that is back to our data base and community so can have access to the largest number of companys '''),
     BoardingModel(
-        image: 'assets/images/islam.jpg',
-        title: 'Buy',
-        body:
-            '''Buy any product in your shop. Get it easly and high quality product'''),
+        image: 'assets/images/undraw_Post_re_mtr4.png',
+        title: 'best',
+        body:  '''your chances to having interviews and geting your deam job will be better then ever '''),
   ];
 
   var boardingController = PageController(

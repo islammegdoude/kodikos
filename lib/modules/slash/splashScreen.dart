@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    Timer(const Duration(seconds: 3), ()async {
+    Timer(const Duration(seconds: 2), ()async {
       bool? onBoarding = CachHelper.getBoolData(key: 'onBoarding');
       String? token = CachHelper.getStringData(key: 'token');
 
@@ -57,14 +57,6 @@ class _SplashScreenState extends State<SplashScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset('assets/images/be22.png',height: 300,width: 300,),
-                
-                const Text(
-                  'Welcome to our store',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
               ],
             ),
           ),

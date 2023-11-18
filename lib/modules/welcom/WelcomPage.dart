@@ -4,7 +4,7 @@ import 'package:kodikos/shared/components/components.dart';
 import 'package:kodikos/shared/components/constants.dart';
 import 'package:kodikos/shared/network/local/cashe_helper.dart';
 
-import '../register/RegisterCompany.dart';
+
 import '../register/RegisterEmployee.dart';
 
 class WelcomPage extends StatelessWidget {
@@ -53,7 +53,7 @@ class WelcomPage extends StatelessWidget {
                   //     navigateAndFinish(context, WelcomPageTow());
                   //   }
                   // });
-                  navigateTo(context, RegisterCompanyScreen());
+                  //navigateTo(context, RegisterCompanyScreen());
                 },
               ),
               SizedBox(

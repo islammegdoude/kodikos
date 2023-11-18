@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kodikos/modules/chat/chatScreen.dart';
 
 
+import '../../models/jobModel.dart';
+import '../../modules/home/homeScreen.dart';
+import '../../modules/profile/ProfileScreen.dart';
+import '../network/end-points/endPoints.dart';
 import '../network/local/cashe_helper.dart';
 import '../network/remot/dio_helper.dart';
 import 'states.dart';
@@ -11,56 +16,131 @@ class AppCubit extends Cubit<AppStates> {
 
   static AppCubit get(context) => BlocProvider.of(context);
 
-  int currentIndex = 4;
-  // List<Widget> screens = [
-  //   ProfileScreen(),
-  //   OrdersScreen(),
-  //   CardScreen(),
-  //   FavoritesScreen(),
-  //   HomeScreen(),
-  // ];
+  int currentIndex = 0;
+  List<Widget> screens = [
+    HomeScreen(),
+    ChatScreen(),
+    ProfileScreen(),
+  ];
+List<BottomNavigationBarItem> bottomNavItems = const [
+    BottomNavigationBarItem(
+      icon: Icon(
+        Icons.home_filled,
+      ),
+      label: 'home'
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(
+        Icons.chat,
+      ),
+      label: 'chat'
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.person_outline_rounded),
+      label: 'Profile'
+    ),
+  ];
+
+  void changeBottomNavBar(index) {
+    currentIndex = index;
+    if (currentIndex == 0) {
+      // getProfile();
+    }
+    if (currentIndex == 1) {
+      // getAllPendingPurchases();
+    }
+    if (currentIndex == 2) {
+      // getCart();
+    }
+    emit(AppChangeNavBarState());
+  }
+JobOfferResponse? jobOfferResponse;
+///////// get all jobs /////////
+void getAllJobs(){
+  emit(AppLoadingGetJobsState());
+    //profileModel = null; 
+    String? token = CachHelper.getData(key: 'token');
+    print(token);
+    DioHelper.getData(
+      url: All_JOB,
+      query: null,
+      token: token!,
+    ).then((value) {
+      jobOfferResponse = JobOfferResponse.fromJson(value.data);
+      emit(AppSuccessGetJobsState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(AppErrorGetJobsState());
+    });
+}
 
 
-  // void changeBottomNavBar(index) {
-  //   currentIndex = index;
-  //   if (currentIndex == 0) {
-  //     getProfile();
-  //   }
-  //   if (currentIndex == 1) {
-  //     getAllPendingPurchases();
-  //   }
-  //   if (currentIndex == 2) {
-  //     getCart();
-  //   }
-  //   if (currentIndex == 3) {
-  //     getFavorites();
-  //   }
-  //   if (currentIndex == 4) {
-  //     getAllProducts();
-  //     getAllCategories();
-  //   }
-  //   emit(ShopChangeNavBarState());
-  // }
 
+ ///// search ///////
+  JobOfferResponse? searchModel;
+  void search(String text){
+    emit(AppLoadingSearchState());
+    searchModel = null;
+    String? token = CachHelper.getData(key: 'token');
+    print(token);
+    DioHelper.getData(
+      url: SEARCH_JOB,
+      query: {
+        'text': text,
+      },
+      token: token!,
+    ).then((value) {
+      print(value.data);
+      searchModel = JobOfferResponse.fromJson(value.data);
+      emit(AppSuccessSearchState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(AppErrorSearchState());
+    });
+  }
+///// apply job ///////
+
+void applyJob(int idJobOffer){
+  emit(AppLoadingApplyJobState());
+    //profileModel = null; 
+    String? token = CachHelper.getData(key: 'token');
+
+    print(token);
+    DioHelper.postData(
+      url: APPLY_JOB,
+      data: {
+        'id_job_offer': idJobOffer,
+        'token' : token,
+      },
+      
+    ).then((value) {
+      print(value.data);
+      emit(AppSuccessApplyJobState());
+    }).catchError((error) {
+      print(error.toString());
+      emit(AppErrorApplyJobState());
+    });
+}
+//   /////// login ///////
 //   //////// get profile ///////
 //   UserResponseModel? profileModel;
-//   void getProfile() {
-//     emit(ShopLoadingProfileState());
-//     //profileModel = null; 
-//     String? token = CachHelper.getData(key: 'token');
-//     print(token);
-//     DioHelper.postData(
-//       url: PROFILE,
-//       data: null,
-//       token: token!,
-//     ).then((value) {
-//       profileModel = UserResponseModel.fromJson(value.data);
-//       emit(ShopSuccessProfileState());
-//     }).catchError((error) {
-//       print(error.toString());
-//       emit(ShopErrorProfileState());
-//     });
-//   }
+  // void getProfile() {
+  //   emit(ShopLoadingProfileState());
+  //   //profileModel = null; 
+  //   String? token = CachHelper.getData(key: 'token');
+  //   print(token);
+  //   DioHelper.postData(
+  //     url: PROFILE,
+  //     data: null,
+  //     token: token!,
+  //   ).then((value) {
+  //     profileModel = UserResponseModel.fromJson(value.data);
+  //     emit(ShopSuccessProfileState());
+  //   }).catchError((error) {
+  //     print(error.toString());
+  //     emit(ShopErrorProfileState());
+  //   });
+  // }
 
 //     /////// get all products ///////
 //   AllProductsModel? allProductsModel;
